@@ -6,5 +6,4 @@
 set(TEST_SRC
   "${TEST_SRC_PATH}/testIntegrate.cpp"
   "${TEST_SRC_PATH}/testEuler.cpp"
-  "${TEST_SRC_PATH}/testRK4.cpp"
 )
