@@ -5,5 +5,5 @@
 # Set project test source files.
 set(TEST_SRC
   "${TEST_SRC_PATH}/testIntegrate.cpp"
-  "${TEST_SRC_PATH}/testDummy.cpp"
+  "${TEST_SRC_PATH}/testEuler.cpp"
 )
