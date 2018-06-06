@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Kartik Kumar (me@kartikkumar.com)
+ * Copyright (c) 2018 Kartik Kumar (me@kartikkumar.com)
  * Distributed under the MIT License.
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
@@ -37,12 +37,7 @@ const void stepEuler(
     State& nextState )
 {
     const State currentStateDerivative = computeStateDerivative( currentTime, currentState );
-
-    for ( unsigned int i = 0; i < nextState.size( ); ++i )
-    {
-        nextState[ i ] = currentState[ i ] + timeStep * currentStateDerivative[ i ];
-    }
-
+    nextState = currentState + timeStep * currentStateDerivative;
     nextTime = currentTime + timeStep;
 };
 

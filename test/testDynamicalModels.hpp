@@ -1,47 +1,44 @@
 /*
- * Copyright (c) 2017 Kartik Kumar (me@kartikkumar.com)
+ * Copyright (c) 2018 Kartik Kumar (me@kartikkumar.com)
  * Distributed under the MIT License.
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
+
+#include <vector>
+
+#include "testState.hpp"
 
 namespace integrate
 {
 namespace tests
 {
 
-// //! Declare
-// typedef double Real;
-// typedef std::vector< Real > State;
-
-//! Zero-dynamics class.
-/*!
- * Class containing zero-dynamics model, i.e., dynamical model with state derivatives equal to zero.
- *
- * @tparam Real     Type for real numbers
- * @tparam state    Type for state and state derivatives
- */
-template< typename Real, typename State >
 class ZeroDynamics
 {
 public:
 
-    ZeroDynamics( const State& anInitialState )
-        : initialState( anInitialState )
-    { }
+    const State computeStateDerivative( const Real currentTime, const State& currentState )
+    {
+        return State( { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } );
+    }
+
+protected:
+private:
+};
+
+class BurdenFaires
+{
+public:
 
     const State computeStateDerivative( const Real currentTime, const State& currentState )
     {
-        State stateDerivative = currentState;
-
-        for ( unsigned int i = 0; i < stateDerivative.size( ); ++i )
+        std::vector< Real > stateDerivativeArray( currentState.size( ) );
+        for ( unsigned int i = 0; i < stateDerivativeArray.size( ); ++i )
         {
-            stateDerivative[ i ] = 0.0;
+            stateDerivativeArray[ i ] = currentState[ i ] - ( currentTime * currentTime ) + 1.0;
         }
-
-        return stateDerivative;
+        return State( stateDerivativeArray );
     }
-
-    const State initialState;
 
 protected:
 private:
