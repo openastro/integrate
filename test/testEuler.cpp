@@ -22,7 +22,25 @@ namespace integrate
 namespace tests
 {
 
-TEST_CASE( "Test Euler integrator for zero dynamics", "[euler]" )
+TEST_CASE( "Test Euler integrator for zero dynamics free function", "[euler]" )
+{
+    const State initialState( { 1.2, 2.3, -3.6 } );
+    const Real initialTime = 1.0;
+    const Real stepSize = 0.1;
+
+    State currentState = initialState;
+    Real currentTime = initialTime;
+
+    stepEuler< Real, State >( currentTime,
+                              currentState,
+                              stepSize,
+                              &computeZeroDynamics );
+
+    REQUIRE( currentTime  == ( initialTime + stepSize ) );
+    REQUIRE( currentState == initialState );
+}
+
+TEST_CASE( "Test Euler integrator for zero dynamics class", "[euler]" )
 {
     const State initialState( { 1.2, 2.3, -3.6 } );
     const Real initialTime = 1.0;
@@ -34,7 +52,7 @@ TEST_CASE( "Test Euler integrator for zero dynamics", "[euler]" )
     ZeroDynamics dynamics;
 
     using namespace std::placeholders;
-    auto stateDerivativePointer = std::bind( &ZeroDynamics::computeStateDerivative,
+    auto stateDerivativePointer = std::bind( &ZeroDynamics::operator(),
                                              &dynamics,
                                              _1,
                                              _2 );
@@ -73,7 +91,7 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
     BurdenFaires dynamics;
 
     using namespace std::placeholders;
-    auto stateDerivativePointer = std::bind( &BurdenFaires::computeStateDerivative,
+    auto stateDerivativePointer = std::bind( &BurdenFaires::operator( ),
                                              &dynamics,
                                              _1,
                                              _2 );
@@ -306,7 +324,7 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1 using MATLAB", 
     BurdenFaires dynamics;
 
     using namespace std::placeholders;
-    auto stateDerivativePointer = std::bind( &BurdenFaires::computeStateDerivative,
+    auto stateDerivativePointer = std::bind( &BurdenFaires::operator( ),
                                              &dynamics,
                                              _1,
                                              _2 );

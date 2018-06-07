@@ -22,7 +22,25 @@ namespace integrate
 namespace tests
 {
 
-TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics", "[rk4]" )
+TEST_CASE( "Test Runge-Kutta 4 integrator for zero dynamics free function", "[euler]" )
+{
+    const State initialState( { 1.2, 2.3, -3.6 } );
+    const Real initialTime = 1.0;
+    const Real stepSize = 0.1;
+
+    State currentState = initialState;
+    Real currentTime = initialTime;
+
+    stepRK4< Real, State >( currentTime,
+                            currentState,
+                            stepSize,
+                            &computeZeroDynamics );
+
+    REQUIRE( currentTime  == ( initialTime + stepSize ) );
+    REQUIRE( currentState == initialState );
+}
+
+TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics class", "[rk4]" )
 {
     const State initialState( { 1.2, 2.3, -3.6 } );
     const Real initialTime = 1.0;
@@ -34,7 +52,7 @@ TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics", "[rk4]"
     ZeroDynamics dynamics;
 
     using namespace std::placeholders;
-    auto stateDerivativePointer = std::bind( &ZeroDynamics::computeStateDerivative,
+    auto stateDerivativePointer = std::bind( &ZeroDynamics::operator( ),
                                              &dynamics,
                                              _1,
                                              _2 );
@@ -73,7 +91,7 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4
     BurdenFaires dynamics;
 
     using namespace std::placeholders;
-    auto stateDerivativePointer = std::bind( &BurdenFaires::computeStateDerivative,
+    auto stateDerivativePointer = std::bind( &BurdenFaires::operator( ),
                                              &dynamics,
                                              _1,
                                              _2 );
