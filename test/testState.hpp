@@ -20,10 +20,6 @@ class State
 {
 public:
 
-    State( )
-        : array( { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } )
-    { }
-
     State( const std::vector< Real >& anArray )
         : array( anArray )
     { }
@@ -44,10 +40,10 @@ public:
     friend State operator*( const Real multiplier, const State& state );
     friend State operator*( const State& state, const Real multiplier );
 
-    std::vector< Real > array;
-
 protected:
 private:
+
+    std::vector< Real > array;
 };
 
 } // namespace tests

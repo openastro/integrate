@@ -59,16 +59,16 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4
     const Real testTolerance = 1.0e-7;
 
     std::map< Real, State > burdenFairesTable5_1Data;
-    burdenFairesTable5_1Data[ 0.2 ] = State( { 0.8292933 } );
-    burdenFairesTable5_1Data[ 0.4 ] = State( { 1.2140762 } );
-    burdenFairesTable5_1Data[ 0.6 ] = State( { 1.6489220 } );
-    burdenFairesTable5_1Data[ 0.8 ] = State( { 2.1272027 } );
-    burdenFairesTable5_1Data[ 1.0 ] = State( { 2.6408227 } );
-    burdenFairesTable5_1Data[ 1.2 ] = State( { 3.1798942 } );
-    burdenFairesTable5_1Data[ 1.4 ] = State( { 3.7323401 } );
-    burdenFairesTable5_1Data[ 1.6 ] = State( { 4.2834095 } );
-    burdenFairesTable5_1Data[ 1.8 ] = State( { 4.8150857 } );
-    burdenFairesTable5_1Data[ 2.0 ] = State( { 5.3053630 } );
+    burdenFairesTable5_1Data.insert( { 0.2, State( { 0.8292933 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.4, State( { 1.2140762 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.6, State( { 1.6489220 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.8, State( { 2.1272027 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.0, State( { 2.6408227 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.2, State( { 3.1798942 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.4, State( { 3.7323401 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.6, State( { 4.2834095 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.8, State( { 4.8150857 } ) } );
+    burdenFairesTable5_1Data.insert( { 2.0, State( { 5.3053630 } ) } );
 
     BurdenFaires dynamics;
 

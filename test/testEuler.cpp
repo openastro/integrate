@@ -59,16 +59,16 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
     const Real testTolerance = 1.0e-7;
 
     std::map< Real, State > burdenFairesTable5_1Data;
-    burdenFairesTable5_1Data[ 0.2 ] = State( { 0.8000000 } );
-    burdenFairesTable5_1Data[ 0.4 ] = State( { 1.1520000 } );
-    burdenFairesTable5_1Data[ 0.6 ] = State( { 1.5504000 } );
-    burdenFairesTable5_1Data[ 0.8 ] = State( { 1.9884800 } );
-    burdenFairesTable5_1Data[ 1.0 ] = State( { 2.4581760 } );
-    burdenFairesTable5_1Data[ 1.2 ] = State( { 2.9498112 } );
-    burdenFairesTable5_1Data[ 1.4 ] = State( { 3.4517734 } );
-    burdenFairesTable5_1Data[ 1.6 ] = State( { 3.9501281 } );
-    burdenFairesTable5_1Data[ 1.8 ] = State( { 4.4281538 } );
-    burdenFairesTable5_1Data[ 2.0 ] = State( { 4.8657845 } );
+    burdenFairesTable5_1Data.insert( { 0.2 , State( { 0.8000000 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.4 , State( { 1.1520000 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.6 , State( { 1.5504000 } ) } );
+    burdenFairesTable5_1Data.insert( { 0.8 , State( { 1.9884800 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.0 , State( { 2.4581760 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.2 , State( { 2.9498112 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.4 , State( { 3.4517734 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.6 , State( { 3.9501281 } ) } );
+    burdenFairesTable5_1Data.insert( { 1.8 , State( { 4.4281538 } ) } );
+    burdenFairesTable5_1Data.insert( { 2.0 , State( { 4.8657845 } ) } );
 
     BurdenFaires dynamics;
 
