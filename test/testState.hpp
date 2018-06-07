@@ -32,7 +32,13 @@ public:
     const Real operator[ ] ( const int i ) const { return array[ i ]; }
 
     State& operator=( const State& rightHandSide );
+    State& operator+=( const State& rightHandSide );
+
     bool operator==( const State& rightHandSide ) const;
+    bool operator<( const State& rightHandSide ) const;
+    bool operator<( const Real rightHandSide ) const;
+    bool operator>( const State& rightHandSide ) const;
+    bool operator>( const Real rightHandSide ) const;
 
     friend State operator+( const State& leftHandSide, const State& rightHandSide );
     friend State operator*( const Real multiplier, const State& state );

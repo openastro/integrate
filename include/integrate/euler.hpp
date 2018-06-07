@@ -16,29 +16,26 @@ namespace integrate
 /*!
  * Executes single numerical integration step using Euler scheme.
  *
- * @tparam      Real                    Type for floating-point number
- * @tparam      State                   Type for states and state derivative
- * @param[in]   currentTime             Current time
- * @param[in]   timeStep                Time step to take for integration step
- * @param[in]   currentState            Current state
- * @param[in]   computeStateDerivative  Function to compute state derivative for current time and
- *                                      state
- * @param[out]  nextTime                Time at end of integration step
- * @param[out]  nextState               State at end of integration step
+ * @tparam          Real                    Type for floating-point number
+ * @tparam          State                   Type for state and state derivative
+ * @param[in,out]   currentTime             Current time, which is provided as input and contains
+ *                                          output at end of integration step
+ * @param[in,out]   currentState            Current state, which is provided as input and contains
+ *                                          output at end of integration step
+ * @param[in]       stepSize                Step size to take for integration step
+ * @param[in]       computeStateDerivative  Function to compute state derivative for current time
+ *                                          and state
  */
 template< typename Real, typename State >
 const void stepEuler(
-    const Real currentTime,
-    const Real timeStep,
-    const State& currentState,
+    Real& currentTime,
+    State& currentState,
+    const Real stepSize,
     const std::function< const State ( const Real currentTime,
-                                       const State& currentState ) >& computeStateDerivative,
-    Real& nextTime,
-    State& nextState )
+                                       const State& currentState ) >& computeStateDerivative )
 {
-    const State currentStateDerivative = computeStateDerivative( currentTime, currentState );
-    nextState = currentState + timeStep * currentStateDerivative;
-    nextTime = currentTime + timeStep;
+    currentState += stepSize * computeStateDerivative( currentTime, currentState );
+    currentTime += stepSize;
 };
 
 } // namespace integrate

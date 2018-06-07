@@ -7,6 +7,7 @@
 #ifndef INTEGRATE_HPP
 #define INTEGRATE_HPP
 
-#include "integrate/dummy.hpp"
+#include "integrate/euler.hpp"
+#include "integrate/rk4.hpp"
 
 #endif // INTEGRATE_HPP

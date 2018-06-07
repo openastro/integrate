@@ -22,14 +22,14 @@ namespace integrate
 namespace tests
 {
 
-TEST_CASE( "Test Runge-Kutta 4 integrator for zero dynamics", "[rk4]" )
+TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics", "[rk4]" )
 {
     const State initialState( { 1.2, 2.3, -3.6 } );
     const Real initialTime = 1.0;
     const Real stepSize = 0.1;
 
-    State finalState( { 0.0, 0.0, 0.0 } );
-    Real finalTime = 0.0;
+    State currentState = initialState;
+    Real currentTime = initialTime;
 
     ZeroDynamics dynamics;
 
@@ -38,15 +38,13 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for zero dynamics", "[rk4]" )
                                              &dynamics,
                                              _1,
                                              _2 );
-    stepRK4< Real, State >( initialTime,
+    stepRK4< Real, State >( currentTime,
+                            currentState,
                             stepSize,
-                            initialState,
-                            stateDerivativePointer,
-                            finalTime,
-                            finalState );
+                            stateDerivativePointer );
 
-    REQUIRE( finalTime  == ( initialTime + stepSize ) );
-    REQUIRE( finalState == initialState );
+    REQUIRE( currentTime  == ( initialTime + stepSize ) );
+    REQUIRE( currentState == initialState );
 }
 
 TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4]" )
@@ -83,11 +81,9 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4
     for ( const auto& pair : burdenFairesTable5_1Data )
     {
         stepRK4< Real, State >( currentTime,
-                                stepSize,
                                 currentState,
-                                stateDerivativePointer,
-                                currentTime,
-                                currentState );
+                                stepSize,
+                                stateDerivativePointer );
         REQUIRE( pair.first == Approx( currentTime ).epsilon( testTolerance ) );
         REQUIRE( pair.second[ 0 ] == Approx( currentState[ 0 ] ).epsilon( testTolerance ) );
     }

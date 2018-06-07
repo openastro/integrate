@@ -22,9 +22,47 @@ State& State::operator=( const State& rightHandSide )
     return *this;
 }
 
+State& State::operator+=( const State& rightHandSide )
+{
+    *this = *this + rightHandSide;
+    return *this;
+}
+
 bool State::operator==( const State& rightHandSide ) const
 {
     return ( ( *this ).array == rightHandSide.array );
+}
+
+bool State::operator<( const State& rightHandSide ) const
+{
+    return ( ( *this ).array < rightHandSide.array );
+}
+
+bool State::operator<( const Real rightHandSide ) const
+{
+    bool isLess = true;
+    for ( int i = 0; i < ( *this ).size( ); ++i)
+    {
+        if ( ( *this ).array[ i ] > rightHandSide ) { isLess = false; };
+        break;
+    }
+    return isLess;
+}
+
+bool State::operator>( const State& rightHandSide ) const
+{
+    return ( ( *this ).array > rightHandSide.array );
+}
+
+bool State::operator>( const Real rightHandSide ) const
+{
+    bool isMore = true;
+    for ( int i = 0; i < ( *this ).size( ); ++i)
+    {
+        if ( ( *this ).array[ i ] < rightHandSide ) { isMore = false; };
+        break;
+    }
+    return isMore;
 }
 
 State operator+( const State& leftHandSide, const State& rightHandSide )
@@ -52,7 +90,6 @@ State operator*( const State& state, const Real multiplier )
 {
     return multiplier * state;
 }
-
 
 } // namespace tests
 } // namespace integrate

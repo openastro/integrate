@@ -28,8 +28,8 @@ TEST_CASE( "Test Euler integrator for zero dynamics", "[euler]" )
     const Real initialTime = 1.0;
     const Real stepSize = 0.1;
 
-    State finalState( { 0.0, 0.0, 0.0 } );
-    Real finalTime = 0.0;
+    State currentState = initialState;
+    Real currentTime = initialTime;
 
     ZeroDynamics dynamics;
 
@@ -38,15 +38,13 @@ TEST_CASE( "Test Euler integrator for zero dynamics", "[euler]" )
                                              &dynamics,
                                              _1,
                                              _2 );
-    stepEuler< Real, State >( initialTime,
+    stepEuler< Real, State >( currentTime,
+                              currentState,
                               stepSize,
-                              initialState,
-                              stateDerivativePointer,
-                              finalTime,
-                              finalState );
+                              stateDerivativePointer );
 
-    REQUIRE( finalTime  == ( initialTime + stepSize ) );
-    REQUIRE( finalState == initialState );
+    REQUIRE( currentTime  == ( initialTime + stepSize ) );
+    REQUIRE( currentState == initialState );
 }
 
 TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
@@ -82,12 +80,10 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
 
     for ( const auto& pair : burdenFairesTable5_1Data )
     {
-        stepEuler< Real, State >( currentTime,
-                                  stepSize,
-                                  currentState,
-                                  stateDerivativePointer,
-                                  currentTime,
-                                  currentState );
+       stepEuler< Real, State >( currentTime,
+                                 currentState,
+                                 stepSize,
+                                 stateDerivativePointer );
         REQUIRE( pair.first == Approx( currentTime ).epsilon( testTolerance ) );
         REQUIRE( pair.second[ 0 ] == Approx( currentState[ 0 ] ).epsilon( testTolerance ) );
     }

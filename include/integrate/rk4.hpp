@@ -16,35 +16,33 @@ namespace integrate
 /*!
  * Executes single numerical integration step using Runge-Kutta 4 scheme.
  *
- * @tparam      Real                    Type for floating-point number
- * @tparam      State                   Type for states and state derivative
- * @param[in]   currentTime             Current time
- * @param[in]   timeStep                Time step to take for integration step
- * @param[in]   currentState            Current state
- * @param[in]   computeStateDerivative  Function to compute state derivative for current time and
- *                                      state
- * @param[out]  nextTime                Time at end of integration step
- * @param[out]  nextState               State at end of integration step
+ * @tparam          Real                    Type for floating-point number
+ * @tparam          State                   Type for state and state derivative
+ * @param[in,out]   currentTime             Current time, which is provided as input and contains
+ *                                          output at end of integration step
+ * @param[in,out]   currentState            Current state, which is provided as input and contains
+ *                                          output at end of integration step
+ * @param[in]       stepSize                Step size to take for integration step
+ * @param[in]       computeStateDerivative  Function to compute state derivative for current time
+ *                                          and state
  */
 template< typename Real, typename State >
 const void stepRK4(
-    const Real currentTime,
-    const Real timeStep,
-    const State& currentState,
+    Real& currentTime,
+    State& currentState,
+    const Real stepSize,
     const std::function< const State ( const Real currentTime,
-                                       const State& currentState ) >& computeStateDerivative,
-    Real& nextTime,
-    State& nextState )
+                                       const State& currentState ) >& computeStateDerivative )
 {
-    const State k1 = timeStep * computeStateDerivative( currentTime, currentState );
-    const State k2 = timeStep * computeStateDerivative( currentTime + timeStep * 0.5,
+    const State k1 = stepSize * computeStateDerivative( currentTime, currentState );
+    const State k2 = stepSize * computeStateDerivative( currentTime + stepSize * 0.5,
                                                         currentState + 0.5 * k1 );
-    const State k3 = timeStep * computeStateDerivative( currentTime + timeStep * 0.5,
+    const State k3 = stepSize * computeStateDerivative( currentTime + stepSize * 0.5,
                                                         currentState + 0.5 * k2 );
-    const State k4 = timeStep * computeStateDerivative( currentTime + timeStep, currentState + k3 );
+    const State k4 = stepSize * computeStateDerivative( currentTime + stepSize, currentState + k3 );
 
-    nextState = currentState + ( 1.0 / 6.0 ) * ( k1 + 2.0 * k2 + 2.0 * k3 + k4 );
-    nextTime = currentTime + timeStep;
+    currentState += ( 1.0 / 6.0 ) * ( k1 + 2.0 * k2 + 2.0 * k3 + k4 );
+    currentTime += stepSize;
 };
 
 } // namespace integrate
