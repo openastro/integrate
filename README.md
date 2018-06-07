@@ -1,7 +1,7 @@
 integrate
 ===
 
-\cond [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)\endcond
+\cond [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) [![Travis CI build status](https://travis-ci.org/kartikkumar/integrate.svg?branch=master)](https://travis-ci.org/kartikkumar/integrate)\endcond
 
 `integrate` is a header-only C++ library of numerical integrators to solve Ordinary Differential Equations (ODE). A CMake module is available to make it easy to include `integrate` in other projects: [Findintegrate.cmake](https://github.com/openastro/cmake-modules/blob/master/Modules/Findintegrate.cmake).
 
