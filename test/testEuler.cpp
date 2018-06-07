@@ -58,7 +58,7 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
     Real currentTime = initialTime;
     State currentState = initialState;
 
-    const Real tolerance = 1.0e-7;
+    const Real testTolerance = 1.0e-7;
 
     std::map< Real, State > burdenFairesTable5_1Data;
     burdenFairesTable5_1Data[ 0.2 ] = State( { 0.8000000 } );
@@ -88,8 +88,8 @@ TEST_CASE( "Test Euler integrator for Burden & Faires: Table 5.1", "[euler]" )
                                   stateDerivativePointer,
                                   currentTime,
                                   currentState );
-        REQUIRE( pair.first == Approx( currentTime ).epsilon( tolerance ) );
-        REQUIRE( pair.second[ 0 ] == Approx( currentState[ 0 ] ).epsilon( tolerance ) );
+        REQUIRE( pair.first == Approx( currentTime ).epsilon( testTolerance ) );
+        REQUIRE( pair.second[ 0 ] == Approx( currentState[ 0 ] ).epsilon( testTolerance ) );
     }
 }
 

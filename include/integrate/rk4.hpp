@@ -16,7 +16,7 @@ namespace integrate
 /*!
  * Executes single numerical integration step using Runge-Kutta 4 scheme.
  *
- * @tparam      Real                    Type for loating-point number
+ * @tparam      Real                    Type for floating-point number
  * @tparam      State                   Type for states and state derivative
  * @param[in]   currentTime             Current time
  * @param[in]   timeStep                Time step to take for integration step
