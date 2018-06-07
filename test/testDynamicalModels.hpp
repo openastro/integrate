@@ -44,10 +44,7 @@ public:
      * @param[in]       state                   Current state
      * @return                                  Computed state derivative
      */
-    const State operator( )( const Real time, const State& state ) const
-    {
-        return State( { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } );
-    }
+    const State operator( )( const Real time, const State& state ) const;
 
 protected:
 private:
@@ -72,10 +69,7 @@ public:
      * @param[in]       state                   Current state
      * @return                                  Computed state derivative
      */
-    const State operator( )( const Real time, const State& state ) const
-    {
-        return State( { state[ 0 ] - ( time * time ) + 1.0 } );
-    }
+    const State operator( )( const Real time, const State& state ) const;
 
 protected:
 private:
