@@ -16,7 +16,7 @@ State& State::operator=( const State& rightHandSide )
     // Check for self-assignment.
     if ( this != &rightHandSide )
     {
-        array = rightHandSide.array;
+        vector = rightHandSide.vector;
     }
 
     return *this;
@@ -30,12 +30,12 @@ State& State::operator+=( const State& rightHandSide )
 
 bool State::operator==( const State& rightHandSide ) const
 {
-    return ( ( *this ).array == rightHandSide.array );
+    return ( ( *this ).vector == rightHandSide.vector );
 }
 
 bool State::operator<( const State& rightHandSide ) const
 {
-    return ( ( *this ).array < rightHandSide.array );
+    return ( ( *this ).vector < rightHandSide.vector );
 }
 
 bool State::operator<( const Real rightHandSide ) const
@@ -43,7 +43,7 @@ bool State::operator<( const Real rightHandSide ) const
     bool isLess = true;
     for ( int i = 0; i < ( *this ).size( ); ++i)
     {
-        if ( ( *this ).array[ i ] > rightHandSide ) { isLess = false; };
+        if ( ( *this ).vector[ i ] > rightHandSide ) { isLess = false; };
         break;
     }
     return isLess;
@@ -51,7 +51,7 @@ bool State::operator<( const Real rightHandSide ) const
 
 bool State::operator>( const State& rightHandSide ) const
 {
-    return ( ( *this ).array > rightHandSide.array );
+    return ( ( *this ).vector > rightHandSide.vector );
 }
 
 bool State::operator>( const Real rightHandSide ) const
@@ -59,7 +59,7 @@ bool State::operator>( const Real rightHandSide ) const
     bool isMore = true;
     for ( int i = 0; i < ( *this ).size( ); ++i)
     {
-        if ( ( *this ).array[ i ] < rightHandSide ) { isMore = false; };
+        if ( ( *this ).vector[ i ] < rightHandSide ) { isMore = false; };
         break;
     }
     return isMore;
@@ -67,23 +67,23 @@ bool State::operator>( const Real rightHandSide ) const
 
 State operator+( const State& leftHandSide, const State& rightHandSide )
 {
-    std::vector< Real > resultArray( leftHandSide.size( ) );
-    for ( unsigned int i = 0; i < resultArray.size( ); i++ )
+    Vector vector( leftHandSide.size( ) );
+    for ( unsigned int i = 0; i < vector.size( ); i++ )
     {
-        resultArray[ i ] = leftHandSide[ i ] + rightHandSide[ i ];
+        vector[ i ] = leftHandSide[ i ] + rightHandSide[ i ];
     }
 
-    return State( resultArray );
+    return State( vector );
 }
 
 State operator*( const Real multiplier, const State& state )
 {
-    std::vector< Real > resultArray( state.size( ) );
-    for ( unsigned int i = 0; i < resultArray.size( ); i++ )
+    Vector vector( state.size( ) );
+    for ( unsigned int i = 0; i < vector.size( ); i++ )
     {
-        resultArray[ i ] = multiplier * state[ i ];
+        vector[ i ] = multiplier * state[ i ];
     }
-    return State( resultArray );
+    return State( vector );
 }
 
 State operator*( const State& state, const Real multiplier )

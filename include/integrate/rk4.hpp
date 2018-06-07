@@ -18,9 +18,9 @@ namespace integrate
  *
  * @tparam          Real                    Type for floating-point number
  * @tparam          State                   Type for state and state derivative
- * @param[in,out]   currentTime             Current time, which is provided as input and contains
- *                                          output at end of integration step
- * @param[in,out]   currentState            Current state, which is provided as input and contains
+ * @param[in,out]   time                    Independent variable, which is provided as input and is
+ *                                          updated with output at end of integration step
+ * @param[in,out]   state                   State, which is provided as input and is updated with
  *                                          output at end of integration step
  * @param[in]       stepSize                Step size to take for integration step
  * @param[in]       computeStateDerivative  Function to compute state derivative for current time
@@ -28,21 +28,18 @@ namespace integrate
  */
 template< typename Real, typename State >
 const void stepRK4(
-    Real& currentTime,
-    State& currentState,
+    Real& time,
+    State& state,
     const Real stepSize,
-    const std::function< const State ( const Real currentTime,
-                                       const State& currentState ) >& computeStateDerivative )
+    const std::function< const State ( const Real time,
+                                       const State& state ) >& computeStateDerivative )
 {
-    const State k1 = stepSize * computeStateDerivative( currentTime, currentState );
-    const State k2 = stepSize * computeStateDerivative( currentTime + stepSize * 0.5,
-                                                        currentState + 0.5 * k1 );
-    const State k3 = stepSize * computeStateDerivative( currentTime + stepSize * 0.5,
-                                                        currentState + 0.5 * k2 );
-    const State k4 = stepSize * computeStateDerivative( currentTime + stepSize, currentState + k3 );
-
-    currentState += ( 1.0 / 6.0 ) * ( k1 + 2.0 * k2 + 2.0 * k3 + k4 );
-    currentTime += stepSize;
+    const State k1 = stepSize * computeStateDerivative( time, state );
+    const State k2 = stepSize * computeStateDerivative( time + stepSize * 0.5, state + 0.5 * k1 );
+    const State k3 = stepSize * computeStateDerivative( time + stepSize * 0.5, state + 0.5 * k2 );
+    const State k4 = stepSize * computeStateDerivative( time + stepSize, state + k3 );
+    state += ( 1.0 / 6.0 ) * ( k1 + 2.0 * k2 + 2.0 * k3 + k4 );
+    time += stepSize;
 };
 
 } // namespace integrate

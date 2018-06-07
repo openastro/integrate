@@ -18,9 +18,9 @@ namespace integrate
  *
  * @tparam          Real                    Type for floating-point number
  * @tparam          State                   Type for state and state derivative
- * @param[in,out]   currentTime             Current time, which is provided as input and contains
- *                                          output at end of integration step
- * @param[in,out]   currentState            Current state, which is provided as input and contains
+ * @param[in,out]   time                    Independent variable, which is provided as input and is
+ *                                          updated with output at end of integration step
+ * @param[in,out]   state                   State, which is provided as input and is updated with
  *                                          output at end of integration step
  * @param[in]       stepSize                Step size to take for integration step
  * @param[in]       computeStateDerivative  Function to compute state derivative for current time
@@ -28,14 +28,14 @@ namespace integrate
  */
 template< typename Real, typename State >
 const void stepEuler(
-    Real& currentTime,
-    State& currentState,
+    Real& time,
+    State& state,
     const Real stepSize,
-    const std::function< const State ( const Real currentTime,
-                                       const State& currentState ) >& computeStateDerivative )
+    const std::function< const State ( const Real time,
+                                       const State& state ) >& computeStateDerivative )
 {
-    currentState += stepSize * computeStateDerivative( currentTime, currentState );
-    currentTime += stepSize;
+    state += stepSize * computeStateDerivative( time, state );
+    time += stepSize;
 };
 
 } // namespace integrate

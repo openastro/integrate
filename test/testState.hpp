@@ -15,17 +15,18 @@ namespace tests
 {
 
 typedef double Real;
+typedef std::vector< Real > Vector;
 
 class State
 {
 public:
 
-    State( const std::vector< Real >& anArray )
-        : array( anArray )
+    State( const Vector& aVector )
+        : vector( aVector )
     { }
 
-    const int size( ) const { return array.size( ); }
-    const Real operator[ ] ( const int i ) const { return array[ i ]; }
+    const int size( ) const { return vector.size( ); }
+    const Real operator[ ] ( const int i ) const { return vector[ i ]; }
 
     State& operator=( const State& rightHandSide );
     State& operator+=( const State& rightHandSide );
@@ -43,7 +44,7 @@ public:
 protected:
 private:
 
-    std::vector< Real > array;
+    Vector vector;
 };
 
 } // namespace tests
