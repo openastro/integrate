@@ -25,6 +25,7 @@ namespace tests
  * @return                                  Computed state derivative
  */
 const State computeZeroDynamics( const Real time, const State& state );
+
 //! Zero dynamics functor.
 /*!
  * Functor that computes state derivative for a homogeneous system of ordinary differential
