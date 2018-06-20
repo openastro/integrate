@@ -33,38 +33,6 @@ bool State::operator==( const State& rightHandSide ) const
     return ( ( *this ).vector == rightHandSide.vector );
 }
 
-bool State::operator<( const State& rightHandSide ) const
-{
-    return ( ( *this ).vector < rightHandSide.vector );
-}
-
-bool State::operator<( const Real rightHandSide ) const
-{
-    bool isLess = true;
-    for ( int i = 0; i < ( *this ).size( ); ++i)
-    {
-        if ( ( *this ).vector[ i ] > rightHandSide ) { isLess = false; };
-        break;
-    }
-    return isLess;
-}
-
-bool State::operator>( const State& rightHandSide ) const
-{
-    return ( ( *this ).vector > rightHandSide.vector );
-}
-
-bool State::operator>( const Real rightHandSide ) const
-{
-    bool isMore = true;
-    for ( int i = 0; i < ( *this ).size( ); ++i)
-    {
-        if ( ( *this ).vector[ i ] < rightHandSide ) { isMore = false; };
-        break;
-    }
-    return isMore;
-}
-
 State operator+( const State& leftHandSide, const State& rightHandSide )
 {
     Vector vector( leftHandSide.size( ) );
