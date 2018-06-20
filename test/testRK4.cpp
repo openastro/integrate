@@ -24,12 +24,12 @@ namespace tests
 
 TEST_CASE( "Test Runge-Kutta 4 integrator for zero dynamics free function", "[euler]" )
 {
-    const State initialState( { 1.2, 2.3, -3.6 } );
     const Real initialTime = 1.0;
+    const State initialState( { 1.2, 2.3, -3.6 } );
     const Real stepSize = 0.1;
 
-    State currentState = initialState;
     Real currentTime = initialTime;
+    State currentState = initialState;
 
     stepRK4< Real, State >( currentTime,
                             currentState,
@@ -42,20 +42,18 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for zero dynamics free function", "[eu
 
 TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics class", "[rk4]" )
 {
-    const State initialState( { 1.2, 2.3, -3.6 } );
     const Real initialTime = 1.0;
+    const State initialState( { 1.2, 2.3, -3.6 } );
     const Real stepSize = 0.1;
 
-    State currentState = initialState;
     Real currentTime = initialTime;
+    State currentState = initialState;
 
     ZeroDynamics dynamics;
-
-    using namespace std::placeholders;
     auto stateDerivativePointer = std::bind( &ZeroDynamics::operator( ),
                                              &dynamics,
-                                             _1,
-                                             _2 );
+                                             std::placeholders::_1,
+                                             std::placeholders::_2 );
     stepRK4< Real, State >( currentTime,
                             currentState,
                             stepSize,
@@ -65,10 +63,10 @@ TEST_CASE( "Test Runge-Kutta 4 integrator integrator for zero dynamics class", "
     REQUIRE( currentState == initialState );
 }
 
-TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4]" )
+TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires (9th ed.): Table 5.8", "[rk4]" )
 {
-    const State initialState( { 0.5 } );
     const Real initialTime = 0.0;
+    const State initialState( { 0.5 } );
     const Real stepSize = 0.2;
 
     Real currentTime = initialTime;
@@ -89,12 +87,10 @@ TEST_CASE( "Test Runge-Kutta 4 integrator for Burden & Faires: Table 5.1", "[rk4
     burdenFairesTable5_1Data.insert( { 2.0, State( { 5.3053630 } ) } );
 
     BurdenFaires dynamics;
-
-    using namespace std::placeholders;
     auto stateDerivativePointer = std::bind( &BurdenFaires::operator( ),
                                              &dynamics,
-                                             _1,
-                                             _2 );
+                                             std::placeholders::_1,
+                                             std::placeholders::_2 );
 
     for ( const auto& pair : burdenFairesTable5_1Data )
     {
