@@ -46,82 +46,86 @@ const void stepRKF45(
     const Real minimumStepSize,
     const Real maximumStepSize )
 {
-    while ( true )
+    const State k1 = stepSize * computeStateDerivative( time, state );
+    const State k2 = stepSize * computeStateDerivative( time + 0.25 * stepSize,
+                                                        state + 0.25 * k1 );
+    const State k3 = stepSize * computeStateDerivative( time + 0.375 * stepSize,
+                                                        state + 0.09375 * k1 + 0.28125 * k2 );
+    const State k4 = stepSize * computeStateDerivative( time + ( 12.0 / 13.0 ) * stepSize,
+                                                        state + ( 1932.0 / 2197.0 ) * k1
+                                                              + ( -7200.0 / 2197.0 ) * k2
+                                                              + ( 7296.0 / 2197.0 ) * k3 );
+    const State k5 = stepSize * computeStateDerivative( time + stepSize,
+                                                        state + ( 439.0 / 216.0 ) * k1
+                                                              + ( -8.0 ) * k2
+                                                              + ( 3680.0 / 513.0 ) * k3
+                                                              + ( -845.0 / 4104.0 ) * k4 );
+    const State k6 = stepSize * computeStateDerivative( time + 0.5 * stepSize,
+                                                        state + ( -8.0 / 27.0 ) * k1
+                                                              + ( 2.0 ) * k2
+                                                              + ( -3544.0 / 2565.0 ) * k3
+                                                              + ( 1859.0 / 4104.0 ) * k4
+                                                              + ( -11.0 / 40.0 ) * k5 );
+
+    const State errorEstimate = ( 1.0 / 360.0 ) * k1
+                                + ( -128.0 / 4275.0 ) * k3
+                                + ( -2197.0 / 75240.0 ) * k4
+                                + ( 1.0 / 50.0 ) * k5
+                                + ( 2.0 / 55.0 ) * k6;
+
+    Real errorEstimateMaximum = 0.0;
+    for ( int i = 0; i < errorEstimate.size( ); ++i )
     {
-        const State k1 = stepSize * computeStateDerivative( time, state );
-        const State k2 = stepSize * computeStateDerivative( time + 0.25 * stepSize,
-                                                            state + 0.25 * k1 );
-        const State k3 = stepSize * computeStateDerivative( time + 0.375 * stepSize,
-                                                            state + 0.09375 * k1 + 0.28125 * k2 );
-        const State k4 = stepSize * computeStateDerivative( time + ( 12.0 / 13.0 ) * stepSize,
-                                                            state + ( 1932.0 / 2197.0 ) * k1
-                                                                  + ( -7200.0 / 2197.0 ) * k2
-                                                                  + ( 7296.0 / 2197.0 ) * k3 );
-        const State k5 = stepSize * computeStateDerivative( time + stepSize,
-                                                            state + ( 439.0 / 216.0 ) * k1
-                                                                  + ( -8.0 ) * k2
-                                                                  + ( 3680.0 / 513.0 ) * k3
-                                                                  + ( -845.0 / 4104.0 ) * k4 );
-        const State k6 = stepSize * computeStateDerivative( time + 0.5 * stepSize,
-                                                            state + ( -8.0 / 27.0 ) * k1
-                                                                  + ( 2.0 ) * k2
-                                                                  + ( -3544.0 / 2565.0 ) * k3
-                                                                  + ( 1859.0 / 4104.0 ) * k4
-                                                                  + ( -11.0 / 40.0 ) * k5 );
-
-        const State errorEstimate = ( 1.0 / 360.0 ) * k1
-                                    + ( -128.0 / 4275.0 ) * k3
-                                    + ( -2197.0 / 75240.0 ) * k4
-                                    + ( 1.0 / 50.0 ) * k5
-                                    + ( 2.0 / 55.0 ) * k6;
-
-        Real errorEstimateMaximum = 0.0;
-        for ( int i = 0; i < errorEstimate.size( ); ++i )
+        const Real errorEstimateElementAbsolute = std::fabs( errorEstimate[ i ] );
+        if ( errorEstimateMaximum < errorEstimateElementAbsolute )
         {
-            const Real errorEstimateElementAbsolute = std::fabs( errorEstimate[ i ] );
-            if ( errorEstimateMaximum < errorEstimateElementAbsolute )
-            {
-                errorEstimateMaximum = errorEstimateElementAbsolute;
-            }
+            errorEstimateMaximum = errorEstimateElementAbsolute;
         }
+    }
 
-        const Real stepSizeFactor = 0.84 * std::pow( ( tolerance * stepSize
-                                                     / errorEstimateMaximum ), 0.25 );
+    const Real stepSizeFactor = 0.84 * std::pow( ( tolerance * stepSize
+                                                 / errorEstimateMaximum ), 0.25 );
 
-        if ( errorEstimateMaximum < tolerance * stepSize )
+    if ( errorEstimateMaximum < tolerance * stepSize )
+    {
+        time = time + stepSize;
+        state = state + ( 25.0 / 216.0 ) * k1
+                      + ( 1408.0 / 2565.0 ) * k3
+                      + ( 2197.0 / 4104.0 ) * k4
+                      + ( -1.0 / 5.0 ) * k5;
+        stepSize = stepSizeFactor * stepSize;
+    }
+    else
+    {
+        if ( stepSizeFactor <= 0.1 )
         {
-            time = time + stepSize;
-            state = state + ( 25.0 / 216.0 ) * k1
-                          + ( 1408.0 / 2565.0 ) * k3
-                          + ( 2197.0 / 4104.0 ) * k4
-                          + ( -1.0 / 5.0 ) * k5;
-            stepSize = stepSizeFactor * stepSize;
-            break;
+            stepSize = 0.1 * stepSize;
+        }
+        else if ( stepSizeFactor >= 4.0 )
+        {
+            stepSize = 4.0 * stepSize;
         }
         else
         {
-            if ( stepSizeFactor <= 0.1 )
-            {
-                stepSize = 0.1 * stepSize;
-            }
-            else if ( stepSizeFactor >= 4.0 )
-            {
-                stepSize = 4.0 * stepSize;
-            }
-            else
-            {
-                stepSize = stepSizeFactor * stepSize;
-            }
-
-            if ( stepSize > maximumStepSize )
-            {
-                stepSize = maximumStepSize;
-            }
-            else if ( stepSize < minimumStepSize )
-            {
-                std::runtime_error( "Minimum step size exceed!" );
-            }
+            stepSize = stepSizeFactor * stepSize;
         }
+
+        if ( stepSize > maximumStepSize )
+        {
+            stepSize = maximumStepSize;
+        }
+        else if ( stepSize < minimumStepSize )
+        {
+            std::runtime_error( "Minimum step size exceed!" );
+        }
+
+        stepRKF45< Real, State >( time,
+                                  state,
+                                  stepSize,
+                                  computeStateDerivative,
+                                  minimumStepSize,
+                                  maximumStepSize,
+                                  tolerance );
     }
 };
 
