@@ -10,7 +10,6 @@
 #include <catch.hpp>
 
 #include <functional>
-#include <iterator>
 #include <limits>
 #include <map>
 #include <string>
@@ -26,7 +25,7 @@ namespace integrate
 namespace tests
 {
 
-TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator for zero dynamics free function", "[euler]" )
+TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator for zero dynamics free function", "[rfk45]" )
 {
     const Real initialTime = 1.0;
     const State initialState( { 1.2, 2.3, -3.6 } );
@@ -56,7 +55,8 @@ TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator for zero dynamics free fun
     REQUIRE( finalStepSize == initialStepSize );
 }
 
-TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator integrator for zero dynamics class", "[rk4]" )
+TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator integrator for zero dynamics class",
+           "[rfk45]" )
 {
     const Real initialTime = 1.0;
     const State initialState( { 1.2, 2.3, -3.6 } );
@@ -91,7 +91,7 @@ TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator integrator for zero dynami
     REQUIRE( finalStepSize == initialStepSize );
 }
 
-TEST_CASE( "Test Runge-Kutta-Fehlberg 4 integrator using Burden & Faires (9th ed.): Table 5.11",
+TEST_CASE( "Test Runge-Kutta-Fehlberg 4(5) integrator using Burden & Faires (9th ed.): Table 5.11",
            "[rkf45]" )
 {
     const Real initialTime = 0.0;
