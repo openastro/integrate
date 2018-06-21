@@ -9,5 +9,6 @@
 
 #include "integrate/euler.hpp"
 #include "integrate/rk4.hpp"
+#include "integrate/rkf78.hpp"
 
 #endif // INTEGRATE_HPP
