@@ -115,7 +115,7 @@ const void stepRKF78(
                                                                + ( 12.0 / 41.0 ) * k10
                                                                + k12 );
 
-    const State errorEstimate = ( 41.0 / 840.0 ) * ( ( -1.0 ) * k1 + ( -1.0 ) * k11 + k12 + k13 );
+    const State errorEstimate = ( 41.0 / 840.0 ) * ( k1 + k11 + ( -1.0 ) * k12 + ( -1.0 ) * k13 );
 
     Real errorEstimateMaximum = 0.0;
     for ( int i = 0; i < errorEstimate.size( ); ++i )
@@ -128,15 +128,19 @@ const void stepRKF78(
     }
 
     const Real stepSizeFactor = 0.84 * std::pow( ( tolerance * stepSize
-                                                 / errorEstimateMaximum ), 0.25 );
+                                                 / errorEstimateMaximum ), 0.125 );
 
     if ( errorEstimateMaximum < tolerance * stepSize )
     {
         time = time + stepSize;
-        state = state + ( 25.0 / 216.0 ) * k1
-                      + ( 1408.0 / 2565.0 ) * k3
-                      + ( 2197.0 / 4104.0 ) * k4
-                      + ( -1.0 / 5.0 ) * k5;
+        state = state + ( 41.0 / 840.0 ) * k1
+                      + ( 34.0 / 105.0 ) * k6
+                      + ( 9.0 / 35.0 ) * k7
+                      + ( 9.0 / 35.0 ) * k8
+                      + ( 9.0 / 280.0 ) * k9
+                      + ( 9.0 / 280.0 ) * k10
+                      + ( 41.0 / 840.0 ) * k11;
+
         stepSize = stepSizeFactor * stepSize;
     }
     else
