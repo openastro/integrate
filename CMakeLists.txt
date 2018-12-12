@@ -10,8 +10,8 @@ project(integrate C CXX)
 set(${CMAKE_PROJECT_NAME}_SUMMARY              "A numerical integrator library")
 set(${CMAKE_PROJECT_NAME}_VENDOR_NAME          "openastro")
 set(${CMAKE_PROJECT_NAME}_VENDOR_CONTACT       "me@kartikkumar.com")
-set(${CMAKE_PROJECT_NAME}_VERSION_MAJOR        0)
-set(${CMAKE_PROJECT_NAME}_VERSION_MINOR        1)
+set(${CMAKE_PROJECT_NAME}_VERSION_MAJOR        1)
+set(${CMAKE_PROJECT_NAME}_VERSION_MINOR        0)
 set(${CMAKE_PROJECT_NAME}_VERSION_PATCH        0)
 set(PROJECT_VERSION
   "${${CMAKE_PROJECT_NAME}_VERSION_MAJOR}.${${CMAKE_PROJECT_NAME}_VERSION_MINOR}.${${CMAKE_PROJECT_NAME}_VERSION_PATCH}")
@@ -24,11 +24,8 @@ if(NOT EXTERNAL_PATH)
   set(EXTERNAL_PATH                            "${PROJECT_PATH}/external")
 endif(NOT EXTERNAL_PATH)
 if(NOT DOXYGEN_PATH)
-  set(DOXYGEN_PATH                             "${PROJECT_PATH}/doxydocs")
+  set(DOXYGEN_PATH                             "${PROJECT_PATH}/docs")
 endif(NOT DOXYGEN_PATH)
-if(NOT DOCS_PATH)
-  set(DOCS_PATH                                "${PROJECT_PATH}/docs")
-endif(NOT DOCS_PATH)
 set(TEST_PATH                                  "${PROJECT_BINARY_DIR}/test")
 set(TEST_NAME                                  "test_${CMAKE_PROJECT_NAME}")
 
@@ -97,9 +94,9 @@ if(BUILD_DOXYGEN_DOCS)
                  ${PROJECT_BINARY_DIR}/Doxyfile @ONLY IMMEDIATE)
 
   # Add a custom target to run Doxygen whenever the project is built.
-  # If you do NOT want the documentation to be generated EVERY time you build the project
-  # then leave out the 'ALL' keyword from the command below.
-  add_custom_target(doxygen_docs ALL COMMAND ${DOXYGEN_EXECUTABLE}
+  # If you want the documentation to be generated EVERY time you build the project
+  # then add the 'ALL' keyword before 'COMMAND' below.
+  add_custom_target(doxygen_docs COMMAND ${DOXYGEN_EXECUTABLE}
                     ${PROJECT_BINARY_DIR}/Doxyfile
                     SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
 endif(BUILD_DOXYGEN_DOCS)
@@ -109,9 +106,9 @@ if(BUILD_TESTS)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${TEST_PATH})
 
   add_executable(${TEST_NAME} ${TEST_SRC})
-  if(NOT CATCH_FOUND)
-    add_dependencies(${TEST_NAME} catch-lib)
-  endif(NOT CATCH_FOUND)
+  if(NOT CATCH2_FOUND)
+    add_dependencies(${TEST_NAME} catch2-lib)
+  endif(NOT CATCH2_FOUND)
   add_library (test_integrate_lib
     "${PROJECT_PATH}/test/testState.cpp"
     "${PROJECT_PATH}/test/testDynamicalModels.cpp")
@@ -143,7 +140,7 @@ set(CPACK_PACKAGE_VERSION_PATCH       "${${CMAKE_PROJECT_NAME}_VERSION_PATCH}")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY   "${CMAKE_PROJECT_NAME}")
 if(WIN32 AND NOT UNIX)
   # There is a bug in NSI that does not handle full unix paths properly. Make
-  # sure there is at least one set of four (4) backlasshes.
+  # sure there is at least one set of four (4) backslashes.
   set(CPACK_NSIS_DISPLAY_NAME         "${CPACK_PACKAGE_INSTALL_DIRECTORY}")
   set(CPACK_NSIS_CONTACT              "${CMAKE_PROJECT_NAME}_VENDOR_CONTACT")
   set(CPACK_NSIS_MODIFY_PATH ON)

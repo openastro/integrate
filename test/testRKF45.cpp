@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 #include <functional>
 #include <limits>
