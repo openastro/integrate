@@ -15,25 +15,25 @@ namespace integrate
 /*!
  * Executes single numerical integration step using Euler scheme.
  *
- * @tparam          Real                    Type for floating-point number
- * @tparam          State                   Type for state and state derivative
- * @param[in,out]   time                    Independent variable, which is provided as input and is
- *                                          updated with output at end of integration step
- * @param[in,out]   state                   State, which is provided as input and is updated with
- *                                          output at end of integration step
- * @param[in]       stepSize                Step size to take for integration step
- * @param[in]       computeStateDerivative  Function to compute state derivative for current time
- *                                          and state
+ * @tparam         Real                    Type for floating-point number
+ * @tparam         State                   Type for state and state derivative
+ * @param[in,out]  time                    Independent variable, which is provided as input and is
+ *                                         updated with output at end of integration step
+ * @param[in,out]  state                   State, which is provided as input and is updated with
+ *                                         output at end of integration step
+ * @param[in]      stepSize                Step size to take for integration step
+ * @param[in]      computeStateDerivative  Function to compute state derivative for current time
+ *                                         and state
  */
-template< typename Real, typename State >
+template <typename Real, typename State>
 const void stepEuler(
     Real& time,
     State& state,
     const Real stepSize,
-    const std::function< const State ( const Real time,
-                                       const State& state ) >& computeStateDerivative )
+    const std::function<const State(const Real time,
+                                     const State& state)>& computeStateDerivative)
 {
-    state += stepSize * computeStateDerivative( time, state );
+    state += stepSize * computeStateDerivative(time, state);
     time += stepSize;
 };
 

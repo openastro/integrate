@@ -33,9 +33,9 @@ TEST_CASE("Test Runge-Kutta 4 integrator for zero dynamics free function", "[rk4
     State currentState = initialState;
 
     stepRK4<Real, State>(currentTime,
-                           currentState,
-                           stepSize,
-                           &computeZeroDynamics);
+                         currentState,
+                         stepSize,
+                         &computeZeroDynamics);
 
     REQUIRE(currentTime  == (initialTime + stepSize));
     REQUIRE(currentState == initialState);

@@ -17,7 +17,7 @@ endif()
 # Set up project details
 project(
     integrate
-    VERSION 2.0
+    VERSION     2.0
     DESCRIPTION "A numerical integrator library"
     LANGUAGES   CXX
     )

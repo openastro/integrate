@@ -42,12 +42,12 @@ TEST_CASE("Test Runge-Kutta-Fehlberg 7(8) integrator for zero dynamics free func
     Real currentStepSize = initialStepSize;
 
     stepRKF78<Real, State>(currentTime,
-                             currentState,
-                             currentStepSize,
-                             &computeZeroDynamics,
-                             tolerance,
-                             minimumStepSize,
-                             maximumStepSize);
+                           currentState,
+                           currentStepSize,
+                           &computeZeroDynamics,
+                           tolerance,
+                           minimumStepSize,
+                           maximumStepSize);
 
     REQUIRE(finalTime  == (initialTime + finalStepSize));
     REQUIRE(finalState == initialState);
@@ -74,9 +74,9 @@ TEST_CASE("Test Runge-Kutta-Fehlberg 7(8) integrator integrator for zero dynamic
 
     ZeroDynamics dynamics;
     auto stateDerivativePointer = std::bind(&ZeroDynamics::operator(),
-                                             &dynamics,
-                                             std::placeholders::_1,
-                                             std::placeholders::_2);
+                                            &dynamics,
+                                            std::placeholders::_1,
+                                            std::placeholders::_2);
     stepRKF78<Real, State>(currentTime,
                            currentState,
                            currentStepSize,

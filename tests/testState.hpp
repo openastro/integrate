@@ -16,7 +16,7 @@ namespace tests
 //! Set type for floating-point numbers.
 typedef double Real;
 //! Set type for n-dimensional vectors.
-typedef std::vector< Real > Vector;
+typedef std::vector<Real> Vector;
 
 //! State class.
 /*!
@@ -30,7 +30,7 @@ public:
     /*!
      * Constructs state object from an n-dimensional vector.
      *
-     * @param[in]   aVector     An n-dimensional vector
+     * @param[in]  aVector  An n-dimensional vector
      */
     State( const Vector& aVector )
         : vector( aVector )

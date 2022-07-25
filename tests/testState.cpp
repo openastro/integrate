@@ -11,10 +11,10 @@ namespace integrate
 namespace tests
 {
 
-State& State::operator=( const State& rightHandSide )
+State& State::operator=(const State& rightHandSide)
 {
     // Check for self-assignment.
-    if ( this != &rightHandSide )
+    if (this != &rightHandSide)
     {
         vector = rightHandSide.vector;
     }
@@ -22,39 +22,39 @@ State& State::operator=( const State& rightHandSide )
     return *this;
 }
 
-State& State::operator+=( const State& rightHandSide )
+State& State::operator+=(const State& rightHandSide)
 {
     *this = *this + rightHandSide;
     return *this;
 }
 
-bool State::operator==( const State& rightHandSide ) const
+bool State::operator==(const State& rightHandSide) const
 {
-    return ( ( *this ).vector == rightHandSide.vector );
+    return ((*this).vector == rightHandSide.vector);
 }
 
-State operator+( const State& leftHandSide, const State& rightHandSide )
+State operator+(const State& leftHandSide, const State& rightHandSide)
 {
-    Vector vector( leftHandSide.size( ) );
-    for ( unsigned int i = 0; i < vector.size( ); i++ )
+    Vector vector(leftHandSide.size());
+    for (unsigned int i = 0; i < vector.size(); i++)
     {
-        vector[ i ] = leftHandSide[ i ] + rightHandSide[ i ];
+        vector[i] = leftHandSide[i] + rightHandSide[i];
     }
 
-    return State( vector );
+    return State(vector);
 }
 
-State operator*( const Real multiplier, const State& state )
+State operator*(const Real multiplier, const State& state)
 {
-    Vector vector( state.size( ) );
-    for ( unsigned int i = 0; i < vector.size( ); i++ )
+    Vector vector(state.size());
+    for (unsigned int i = 0; i < vector.size(); i++)
     {
-        vector[ i ] = multiplier * state[ i ];
+        vector[i] = multiplier * state[i];
     }
-    return State( vector );
+    return State(vector);
 }
 
-State operator*( const State& state, const Real multiplier )
+State operator*(const State& state, const Real multiplier)
 {
     return multiplier * state;
 }

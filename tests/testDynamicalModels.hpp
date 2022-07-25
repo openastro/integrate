@@ -17,13 +17,15 @@ namespace tests
 /*!
  * Computes state derivative for a homogeneous system of ordinary differential equations, i.e.,
  *
- *  xdot = F(t,x) = 0
+ * \f[
+ *      xdot = F(t,x) = 0
+ * \f]
  *
- * @param[in]       time                    Current time
- * @param[in]       state                   Current state
- * @return                                  Computed state derivative
+ * @param[in]  time   Current time
+ * @param[in]  state  Current state
+ * @return            Computed state derivative
  */
-const State computeZeroDynamics( const Real time, const State& state );
+const State computeZeroDynamics(const Real time, const State& state);
 
 //! Zero dynamics functor.
 /*!
@@ -38,13 +40,15 @@ public:
     /*!
      * Computes state derivative for a homogeneous system of ordinary differential equations, i.e.,
      *
-     *  xdot = F(t,x) = 0
+     * \f[
+     *      xdot = F(t,x) = 0
+     * \f]
      *
-     * @param[in]       time                    Current time
-     * @param[in]       state                   Current state
-     * @return                                  Computed state derivative
+     * @param[in]  time   Current time
+     * @param[in]  state  Current state
+     * @return            Computed state derivative
      */
-    const State operator( )( const Real time, const State& state ) const;
+    const State operator()(const Real time, const State& state) const;
 
 protected:
 private:
@@ -63,13 +67,15 @@ public:
     /*!
      * Computes state derivative for following dynamical system given in Burden & Faires (2001).
      *
-     *  ydot = F(t,y) = y - t^2 + 1
+     * \f[
+     *      ydot = F(t,y) = y - t^2 + 1
+     * \f]
      *
-     * @param[in]       time                    Current time
-     * @param[in]       state                   Current state
-     * @return                                  Computed state derivative
+     * @param[in]  time   Current time
+     * @param[in]  state  Current state
+     * @return            Computed state derivative
      */
-    const State operator( )( const Real time, const State& state ) const;
+    const State operator()(const Real time, const State& state) const;
 
 protected:
 private:
