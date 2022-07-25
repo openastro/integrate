@@ -4,8 +4,7 @@
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
 
-#ifndef INTEGRATE_EULER_HPP
-#define INTEGRATE_EULER_HPP
+#pragma once
 
 #include <functional>
 
@@ -39,5 +38,3 @@ const void stepEuler(
 };
 
 } // namespace integrate
-
-#endif // INTEGRATE_EULER_HPP

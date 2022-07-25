@@ -3,7 +3,7 @@ integrate
 
 \cond [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) [![Travis CI build status](https://travis-ci.org/kartikkumar/integrate.svg?branch=master)](https://travis-ci.org/kartikkumar/integrate) [![Coverity Scan Build Status](https://scan.coverity.com/projects/kartikkumar-integrate/badge.svg)](https://scan.coverity.com/projects/kartikkumar-integrate/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/kartikkumar/integrate/badge.svg?branch=master)](https://coveralls.io/github/kartikkumar/integrate?branch=master)\endcond
 
-integrate is a header-only, C++ (template) library of numerical integrators to solve Ordinary Differential Equations (ODE). A CMake module is available to make it easy to include integrate in other projects: [Findintegrate.cmake](https://github.com/openastro/cmake-modules/blob/master/Modules/Findintegrate.cmake).
+integrate is a header-only, C++ library of numerical integrators to solve Ordinary Differential Equations (ODE). A CMake module is available to make it easy to include integrate in other projects: [Findintegrate.cmake](https://github.com/openastro/cmake-modules/blob/master/Modules/Findintegrate.cmake).
 
 Features
 ------

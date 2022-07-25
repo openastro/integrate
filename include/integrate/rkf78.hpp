@@ -4,8 +4,7 @@
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
 
-#ifndef INTEGRATE_RKF78_HPP
-#define INTEGRATE_RKF78_HPP
+#pragma once
 
 #include <iomanip>
 #include <limits>
@@ -178,5 +177,3 @@ const void stepRKF78(
 };
 
 } // namespace integrate
-
-#endif // INTEGRATE_RKF78_HPP

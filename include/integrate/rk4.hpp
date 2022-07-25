@@ -4,8 +4,7 @@
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
 
-#ifndef INTEGRATE_RK4_HPP
-#define INTEGRATE_RK4_HPP
+#pragma once
 
 #include <functional>
 
@@ -43,5 +42,3 @@ const void stepRK4(
 };
 
 } // namespace integrate
-
-#endif // INTEGRATE_RK4_HPP

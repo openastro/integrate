@@ -4,8 +4,7 @@
  * See accompanying file LICENSE.md or copy at http://opensource.org/licenses/MIT
  */
 
-#ifndef INTEGRATE_RKF45_HPP
-#define INTEGRATE_RKF45_HPP
+#pragma once
 
 #include <iomanip>
 #include <limits>
@@ -130,5 +129,3 @@ const void stepRKF45(
 };
 
 } // namespace integrate
-
-#endif // INTEGRATE_RKF45_HPP
