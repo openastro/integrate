@@ -15,6 +15,9 @@
 set(
   TESTS_SOURCE_LIST
 	testEuler.cpp
+  testRK4.cpp
+  testRKF45.cpp
+  testRKF78.cpp
   )
 
 # -----------------------------------------------
