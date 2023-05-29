@@ -1,7 +1,11 @@
 <map id="rkf78.hpp" name="rkf78.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="142,5,218,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,80,104"/>
-<area shape="rect" id="node3" title=" " alt="" coords="104,79,163,104"/>
-<area shape="rect" id="node4" title=" " alt="" coords="187,79,266,104"/>
-<area shape="rect" id="node5" title=" " alt="" coords="290,79,369,104"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="140,5,215,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,80,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,34,80,74,77,69,153,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="103,79,161,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,33,150,68,145,65,167,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="185,79,263,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="187,30,210,65,206,68,183,33"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="287,79,364,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="203,29,288,70,286,75,201,34"/>
 </map>
